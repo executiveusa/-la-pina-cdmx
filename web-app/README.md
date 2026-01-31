@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# Euki Web - Period Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A privacy-first, web-based period tracking application with educational content. This is a web version of the iOS Euki app, built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📅 **Period Tracking**: Log periods, symptoms, emotions, and health data
+- 🔄 **Cycle Predictions**: Automatic cycle calculations and period forecasting
+- 📚 **Educational Content**: Comprehensive sexual & reproductive health information
+- 🔒 **Privacy First**: All data encrypted and stored locally - no cloud sync
+- 🔐 **PIN Protection**: Optional security code for sensitive data
+- 📱 **Responsive Design**: Works on mobile, tablet, and desktop
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Deployment to Vercel
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install -g vercel
+cd web-app
+vercel --prod
 ```
+
+## Tech Stack
+
+- React 18 + TypeScript
+- Vite (build tool)
+- Zustand (state management)
+- CryptoJS (encryption)
+- date-fns (date utilities)
+- Lucide React (icons)
+
+## Privacy
+
+- ✅ All data stored locally in encrypted browser storage
+- ✅ No cloud synchronization
+- ✅ No user accounts required
+- ✅ No analytics or tracking
+- ✅ Works offline
+
+## Project Structure
+
+```
+src/
+├── components/     # React components
+├── lib/           # Business logic & utilities
+├── store/         # Zustand state management
+├── styles/        # Component styles
+├── types/         # TypeScript types
+└── App.tsx        # Main component
+```
+
+## License
+
+GNU GPL v3.0
