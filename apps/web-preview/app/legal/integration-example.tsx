@@ -1,12 +1,15 @@
 /**
  * INTEGRATION EXAMPLES
- * 
+ *
  * This file shows how to integrate legal disclaimers into various pages.
  * Copy these patterns into your actual page components.
- * 
+ *
  * DO NOT import this file directly - it's for reference only.
  */
 
+'use client'
+
+import React, { useState } from 'react'
 import {
   MedicalDisclaimer,
   EmergencyResources,
