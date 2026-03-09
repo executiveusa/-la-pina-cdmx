@@ -14,11 +14,23 @@ out
 
 # Misc
 .DS_Store
+
+# Environment Variables - NEVER commit these!
 .env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
+.env*.local
+
+# Secrets and keys
+*.pem
+*.key
+secrets.json
+credentials.json
 
 # Logs
 npm-debug.log*
