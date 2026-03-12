@@ -55,6 +55,7 @@ function App() {
           <div className="track-view">
             <h2>Track for {new Date(selectedDate).toLocaleDateString()}</h2>
             <TrackingForm
+              key={selectedDate}
               date={selectedDate}
               onSave={() => setActiveTab('home')}
             />
