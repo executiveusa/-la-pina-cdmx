@@ -12,6 +12,10 @@ dist
 .next
 out
 
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
 # Misc
 .DS_Store
 
