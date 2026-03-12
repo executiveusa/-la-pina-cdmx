@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { parseISO, format } from 'date-fns';
 import { useAppStore } from './store/appStore';
 import { PinProtection } from './components/PinProtection';
 import { Calendar } from './components/Calendar';
@@ -53,7 +54,7 @@ function App() {
         )}
         {activeTab === 'track' && selectedDate && (
           <div className="track-view">
-            <h2>Track for {new Date(selectedDate).toLocaleDateString()}</h2>
+            <h2>Track for {format(parseISO(selectedDate), 'PPP')}</h2>
             <TrackingForm
               date={selectedDate}
               onSave={() => setActiveTab('home')}
