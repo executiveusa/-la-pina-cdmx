@@ -58,6 +58,12 @@ export const Calendar: React.FC<CalendarProps> = ({ onSelectDate }) => {
           key={dateStr}
           className={className}
           onClick={() => onSelectDate(dateStr)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onSelectDate(dateStr);
+            }
+          }}
           role="button"
           tabIndex={0}
         >

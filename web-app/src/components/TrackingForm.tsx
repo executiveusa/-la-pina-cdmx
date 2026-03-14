@@ -28,6 +28,15 @@ export const TrackingForm: React.FC<TrackingFormProps> = ({ date, onSave }) => {
   const [symptoms, setSymptoms] = useState<string[]>((existing?.symptoms as string[]) || []);
   const [notes, setNotes] = useState(existing?.notes || '');
 
+  // Reset form state when date changes
+  React.useEffect(() => {
+    setBleedingSize(existing?.bleeding?.size);
+    setBleedingProducts((existing?.bleeding?.products as string[]) || []);
+    setEmotions((existing?.emotions as string[]) || []);
+    setSymptoms((existing?.symptoms as string[]) || []);
+    setNotes(existing?.notes || '');
+  }, [date, existing]);
+
   const handleBleedingProductToggle = (product: string) => {
     setBleedingProducts(prev =>
       prev.includes(product)

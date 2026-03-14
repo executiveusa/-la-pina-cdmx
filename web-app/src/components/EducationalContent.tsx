@@ -66,11 +66,23 @@ interface ContentItemProps {
 }
 
 const ContentItemComponent: React.FC<ContentItemProps> = ({ item, onSelectItem }) => {
-  const { isBookmarked, toggleBookmark } = useAppStore();
+  const isBookmarked = useAppStore(s => s.isBookmarked);
+  const toggleBookmark = useAppStore(s => s.toggleBookmark);
   const bookmarked = isBookmarked(item.id);
 
   return (
-    <div className="content-item" onClick={() => onSelectItem(item)}>
+    <div
+      className="content-item"
+      onClick={() => onSelectItem(item)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelectItem(item);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+    >
       <div className="item-header">
         <h3>{item.title}</h3>
         <button
@@ -94,7 +106,8 @@ const ContentItemComponent: React.FC<ContentItemProps> = ({ item, onSelectItem }
 export const EducationalContent: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState(CONTENT_DATA);
   const [breadcrumbs, setBreadcrumbs] = useState<any[]>([CONTENT_DATA]);
-  const { isBookmarked } = useAppStore();
+  const isBookmarked = useAppStore(s => s.isBookmarked);
+  const toggleBookmark = useAppStore(s => s.toggleBookmark);
   const bookmarked = isBookmarked(selectedItem.id);
 
   const handleSelectItem = (item: any) => {
@@ -135,9 +148,7 @@ export const EducationalContent: React.FC = () => {
         <div className="content-header">
           <h2>{selectedItem.title}</h2>
           <button
-            onClick={() => {
-              useAppStore().toggleBookmark(selectedItem.id);
-            }}
+            onClick={() => toggleBookmark(selectedItem.id)}
             className="bookmark-button large"
           >
             <Bookmark size={24} fill={bookmarked ? "currentColor" : "none"} />

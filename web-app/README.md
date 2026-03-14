@@ -30,7 +30,7 @@ vercel --prod
 
 ## Tech Stack
 
-- React 18 + TypeScript
+- React 19 + TypeScript
 - Vite (build tool)
 - Zustand (state management)
 - CryptoJS (encryption)

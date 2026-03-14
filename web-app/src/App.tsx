@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 import { useAppStore } from './store/appStore';
 import { PinProtection } from './components/PinProtection';
 import { Calendar } from './components/Calendar';
@@ -12,22 +13,37 @@ import { Home, Calendar as CalendarIcon, BookOpen, Settings as SettingsIcon, Log
 type Tab = 'home' | 'calendar' | 'track' | 'info' | 'settings';
 
 function App() {
-  const { isAuthenticated, isPinProtected, authenticate, logout, loadFromStorage } = useAppStore();
+  const isAuthenticated = useAppStore(s => s.isAuthenticated);
+  const isPinProtected = useAppStore(s => s.isPinProtected);
+  const authenticate = useAppStore(s => s.authenticate);
+  const logout = useAppStore(s => s.logout);
+  const loadFromStorage = useAppStore(s => s.loadFromStorage);
+
   const [activeTab, setActiveTab] = useState<Tab>('home');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
+  // Load persisted state on mount
   useEffect(() => {
     loadFromStorage();
+    setIsHydrated(true);
   }, [loadFromStorage]);
 
-  if (!isAuthenticated && isPinProtected) {
-    return <PinProtection onAuthenticated={() => authenticate()} />;
+  // Authenticate first-time users after hydration
+  useEffect(() => {
+    if (isHydrated && !isAuthenticated && !isPinProtected) {
+      authenticate();
+    }
+  }, [isHydrated, isAuthenticated, isPinProtected, authenticate]);
+
+  // Show PIN screen while loading or if PIN is required
+  if (!isHydrated || (!isAuthenticated && isPinProtected)) {
+    return isHydrated ? (
+      <PinProtection onAuthenticated={() => authenticate()} />
+    ) : null;
   }
 
-  if (!isAuthenticated && !isPinProtected) {
-    // First time user - show onboarding and set up pin
-    authenticate();
-  }
+  const getTodayDateString = () => format(new Date(), 'yyyy-MM-dd');
 
   return (
     <div className="app-container">
@@ -53,8 +69,9 @@ function App() {
         )}
         {activeTab === 'track' && selectedDate && (
           <div className="track-view">
-            <h2>Track for {new Date(selectedDate).toLocaleDateString()}</h2>
+            <h2>Track for {format(new Date(selectedDate + 'T00:00:00'), 'MMMM d, yyyy')}</h2>
             <TrackingForm
+              key={selectedDate}
               date={selectedDate}
               onSave={() => setActiveTab('home')}
             />
@@ -84,7 +101,7 @@ function App() {
         <button
           className={`nav-button ${activeTab === 'track' ? 'active' : ''}`}
           onClick={() => {
-            setSelectedDate(new Date().toISOString().split('T')[0]);
+            setSelectedDate(getTodayDateString());
             setActiveTab('track');
           }}
           title="Track"
