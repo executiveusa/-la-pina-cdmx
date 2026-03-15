@@ -27,7 +27,6 @@ interface AppStore extends AppState {
 }
 
 export const useAppStore = create<AppStore>((set, get) => ({
-  pinCode: undefined,
   isPinProtected: false,
   isAuthenticated: false,
   autoDeleteEnabled: false,
@@ -100,7 +99,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
   setPinCode: (pin: string) => {
     storage.setPinCode(pin);
-    set({ pinCode: pin, isPinProtected: true });
+    set({ isPinProtected: true });
   },
 
   verifyPinCode: (pin: string) => {
@@ -109,7 +108,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
   clearPin: () => {
     storage.clearPin();
-    set({ pinCode: undefined, isPinProtected: false, isAuthenticated: false });
+    set({ isPinProtected: false, isAuthenticated: false });
   },
 
   authenticate: () => {
@@ -121,6 +120,10 @@ export const useAppStore = create<AppStore>((set, get) => ({
   },
 
   setAutoDelete: (enabled: boolean, frequency?: 'weekly' | 'monthly' | 'yearly') => {
+    localStorage.setItem('euki_auto_delete_enabled', JSON.stringify(enabled));
+    if (frequency) {
+      localStorage.setItem('euki_auto_delete_frequency', frequency);
+    }
     set({
       autoDeleteEnabled: enabled,
       autoDeleteFrequency: frequency,
@@ -134,7 +137,6 @@ export const useAppStore = create<AppStore>((set, get) => ({
       appointments: [],
       bookmarks: [],
       reminders: [],
-      pinCode: undefined,
       isPinProtected: false,
       isAuthenticated: false,
     });
@@ -149,12 +151,24 @@ export const useAppStore = create<AppStore>((set, get) => ({
     const bookmarks = storage.getBookmarks();
     const isPinProtected = storage.isPinProtected();
 
+    // Restore auto-delete settings
+    const autoDeleteEnabled = localStorage.getItem('euki_auto_delete_enabled')
+      ? JSON.parse(localStorage.getItem('euki_auto_delete_enabled')!)
+      : false;
+    const autoDeleteFrequency = localStorage.getItem('euki_auto_delete_frequency') as
+      | 'weekly'
+      | 'monthly'
+      | 'yearly'
+      | null;
+
     set({
       trackingEntries: entries,
       appointments,
       reminders,
       bookmarks,
       isPinProtected,
+      autoDeleteEnabled,
+      autoDeleteFrequency: autoDeleteFrequency || undefined,
     });
   },
 }));

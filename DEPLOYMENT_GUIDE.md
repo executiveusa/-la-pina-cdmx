@@ -91,8 +91,10 @@ After deployment:
    - In Vercel dashboard: Settings → Domains
    - Add your custom domain
 
-3. **Enable analytics** (optional):
-   - Vercel provides built-in Web Analytics
+3. **Analytics** (keep disabled for privacy):
+   - **IMPORTANT**: Disable Vercel Analytics to maintain privacy-first promise
+   - Users expect zero tracking on a menstrual health app
+   - Go to Settings → Data Collection → disable Web Analytics
 
 ## Troubleshooting
 

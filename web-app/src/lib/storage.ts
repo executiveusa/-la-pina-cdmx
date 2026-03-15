@@ -56,6 +56,8 @@ class SecureStorage {
     localStorage.removeItem('euki_appointments');
     localStorage.removeItem('euki_reminders');
     localStorage.removeItem('euki_bookmarks');
+    localStorage.removeItem('euki_pin');
+    localStorage.removeItem('euki_pin_protected');
   }
 
   saveAppointments(appointments: Appointment[]): void {
@@ -105,13 +107,22 @@ class SecureStorage {
   }
 
   saveBookmarks(bookmarks: string[]): void {
-    localStorage.setItem('euki_bookmarks', JSON.stringify(bookmarks));
+    const storageData: StorageData = {
+      version: STORAGE_VERSION,
+      encrypted: true,
+      data: this.encrypt(JSON.stringify(bookmarks)),
+    };
+    localStorage.setItem('euki_bookmarks', JSON.stringify(storageData));
   }
 
   getBookmarks(): string[] {
     try {
       const stored = localStorage.getItem('euki_bookmarks');
-      return stored ? JSON.parse(stored) : [];
+      if (!stored) return [];
+
+      const storageData: StorageData = JSON.parse(stored);
+      const decrypted = this.decrypt(storageData.data);
+      return JSON.parse(decrypted);
     } catch (e) {
       console.error('Error reading bookmarks:', e);
       return [];
