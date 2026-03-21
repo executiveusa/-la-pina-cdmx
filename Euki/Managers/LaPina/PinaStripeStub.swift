@@ -91,7 +91,8 @@ class PinaStripeStub {
     }
 
     /// Stub restore purchases method
-    /// - Parameter completion: Returns mock subscription response
+    /// Restores previous purchases and returns the current active subscription if one exists
+    /// - Parameter completion: Returns mock subscription response with active subscription (or nil if none found)
     func restorePurchases(completion: @escaping (PinaPaymentResponse) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             let response: PinaPaymentResponse

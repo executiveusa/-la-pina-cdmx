@@ -35,7 +35,6 @@ export default function CyclePage() {
   const [currentYear, setCurrentYear] = useState(now.getFullYear())
 
   const calendarDays = generateCalendarDays(currentYear, currentMonth)
-  const currentCycle = mockCycles[0]
 
   const handlePrevMonth = () => {
     if (currentMonth === 0) {

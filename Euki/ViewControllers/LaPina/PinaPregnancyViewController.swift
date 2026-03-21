@@ -16,6 +16,7 @@ class PinaPregnancyViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentStackView = UIStackView()
     private let mockData = PinaMockData.sharedInstance
+    private var pickerDataSource: PregnancyWeekPickerDataSource?
 
     // MARK: - Lifecycle
 
@@ -105,7 +106,7 @@ class PinaPregnancyViewController: UIViewController {
         picker.heightAnchor.constraint(equalToConstant: 180).isActive = true
         contentStackView.addArrangedSubview(picker)
 
-        let pickerDataSource = PregnancyWeekPickerDataSource(mockData: mockData)
+        pickerDataSource = PregnancyWeekPickerDataSource(mockData: mockData)
         picker.dataSource = pickerDataSource
         picker.delegate = pickerDataSource
 
