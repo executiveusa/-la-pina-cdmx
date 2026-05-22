@@ -1,0 +1,158 @@
+.calendar-container {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  flex: 1;
+  text-align: center;
+}
+
+.nav-button {
+  background: var(--border);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: background-color 0.2s;
+}
+
+.nav-button:hover {
+  background: var(--primary-light);
+  color: white;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.weekday {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  position: relative;
+  background: white;
+}
+
+.calendar-day.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+
+.calendar-day:hover:not(.empty) {
+  border-color: var(--primary-color);
+  background: var(--primary-light);
+  color: white;
+}
+
+.calendar-day.today {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  font-weight: bold;
+}
+
+.calendar-day.bleeding {
+  border-color: var(--secondary-color);
+  background: rgba(236, 72, 153, 0.1);
+}
+
+.calendar-day.today.bleeding {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.calendar-day.predicted-period {
+  border-color: var(--warning);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.calendar-day.tracked {
+  border-color: var(--success);
+}
+
+.day-number {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.bleeding-indicator,
+.predicted-indicator {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.875rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bleeding-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--secondary-color);
+}
+
+.predicted-dot {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--warning);
+}
