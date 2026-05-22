@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { parseISO, format } from 'date-fns';
 import { format } from 'date-fns';
 import { useAppStore } from './store/appStore';
 import { PinProtection } from './components/PinProtection';
@@ -70,7 +69,6 @@ function App() {
         )}
         {activeTab === 'track' && selectedDate && (
           <div className="track-view">
-            <h2>Track for {format(parseISO(selectedDate), 'PPP')}</h2>
             <h2>Track for {format(new Date(selectedDate + 'T00:00:00'), 'MMMM d, yyyy')}</h2>
             <TrackingForm
               key={selectedDate}
